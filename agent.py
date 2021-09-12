@@ -376,9 +376,10 @@ def get_unit_moves(units, game_state, width, height, player, opponent, unit_team
                         moves.append({"unit": unit, "direction": get_random_direction(unit.pos, GAME_CONSTANTS['DIRECTIONS'], width, height)})
             elif unit.get_cargo_space_left() > 0:
                 closest_resource_tiles = get_closest_resource_tiles(unit, width, height, player.researched_coal(), player.researched_uranium())
-                if unit_team%2:
+                best_tile = None
+                if unit_team%2 and len(closest_resource_tiles):
                     best_tile = closest_resource_tiles[0]
-                else:
+                elif len(closest_resource_tiles)>1:
                     best_tile = closest_resource_tiles[1]
                 
                 if(best_tile):
